@@ -9,7 +9,6 @@ export const NavSideBarDesktop = props => {
 		if(props.navigation.activeSubMenuName !== subMenuName){
 			props.navigation.submenuName = subMenuName
 			props.refreshHandler()
-
 		}
 	}
 

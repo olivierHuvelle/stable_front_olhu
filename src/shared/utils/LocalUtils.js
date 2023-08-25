@@ -1,8 +1,10 @@
 import {navLocales} from '../../layout/locales'
+import {errorLocales} from '../../pages/error/locales'
 
 export class LocalUtils {
 	static allLocales = [
 		navLocales,
+		errorLocales,
 		{
 			fr: {
 				hello: 'Bonjour en francais',

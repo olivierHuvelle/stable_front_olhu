@@ -1,3 +1,4 @@
+import {Outlet, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import {useSelector} from 'react-redux'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -8,17 +9,12 @@ import {Navigation} from '../navigation'
 import classes from './Layout.module.css'
 
 export const Layout = () => {
+	const navigate = useNavigate()
 	const role = useSelector(state => state.role.role)
 	const [navigation] = useState(new Navigation(role))
-	let Component = navigation.activeComponent
 
-
-	// eslint-disable-next-line no-unused-vars
-	const [_, setUnusedState] = useState(0)
 	const navRefreshHandler = () => {
-		setUnusedState(prevState => prevState + 1)
-
-		Component = navigation.activeComponent
+		navigate(`/${navigation.activeSubMenuName}`)
 	}
 
 	const [isMobileSideBarVisible, setIsMobileSideBarVisible] = useState(false)
@@ -39,7 +35,9 @@ export const Layout = () => {
 						<button onClick={showMobileSideBarHandler} className={`d-block d-md-none ${classes.hamburger}`}>
 							<i className="bi bi-list"></i>
 						</button>
-						<Component />
+						<main>
+							<Outlet />
+						</main>
 					</Col>
 				</Row>
 			</Container>
