@@ -1,5 +1,8 @@
+import {navLocales} from '../../layout/locales'
+
 export class LocalUtils {
 	static allLocales = [
+		navLocales,
 		{
 			fr: {
 				hello: 'Bonjour en francais',
