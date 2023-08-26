@@ -1,6 +1,6 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import {Layout} from './layout/Layout/Layout'
-import {Navigation} from './layout/navigation'
+import {Navigation} from './navigation/Navigation'
 
 import {PageOne} from './pages/pageone/Pageone'
 import {PageTwo} from './pages/pagetwo/Pagetwo'
@@ -13,15 +13,13 @@ const routerMapper = {
 	Tmp
 }
 
-const navigation = new Navigation()
-
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Layout />,
-		errorElement: <Error />,
-		children: navigation.router.map(route => ({
-			path: `/${route.path}`,
+		element: <Layout/>,
+		errorElement: <Error/>,
+		children: Navigation.getRouter().map(route => ({
+			path: route.path,
 			element: routerMapper[route.component]()
 		}))
 	}
@@ -29,6 +27,6 @@ const router = createBrowserRouter([
 
 export const App = () => {
 	return (
-		<RouterProvider router={router} />
+		<RouterProvider router={router}/>
 	)
 }

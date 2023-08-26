@@ -1,42 +1,62 @@
-import {Outlet, useNavigate} from 'react-router-dom'
-import {useState} from 'react'
+import {Outlet, useLocation} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import {useState, useEffect} from 'react'
 import {Container, Row, Col} from 'react-bootstrap'
 import {Navtopbar} from '../Components/Navtopbar/Navtopbar'
 import {NavSideBarDesktop} from '../Components/Sidebar/Navsidebardesktop/Navsidebardesktop'
 import {NavSideBarMobile} from '../Components/Sidebar/Navsidebarmobile/Navsidebarmobile'
-import {Navigation} from '../navigation'
+import {Navigation} from '../../navigation/Navigation'
 import classes from './Layout.module.css'
 
 export const Layout = () => {
-	const navigate = useNavigate()
+	const location = useLocation()
 	const role = useSelector(state => state.role.role)
-	const [navigation] = useState(new Navigation(role))
+	const [hasSubmenu, setHasSubmenu] = useState(false)
+	const [currentUrl, setCurrentUrl] = useState('')
 
-	const navRefreshHandler = () => {
-		navigate(`/${navigation.activeSubMenuName}`)
-	}
+	useEffect(() => {
+		if (currentUrl !== location.pathname) {
+			setCurrentUrl(location.pathname)
+		}
+		if (role) {
+			const submenus = Navigation.getSubMenusForRoleAndUrl(location.pathname, role)
+			if (submenus && submenus.length && submenus.length > 1) {
+				setHasSubmenu(true)
+			} else {
+				setHasSubmenu(false)
+			}
+		} else {
+			setHasSubmenu(false)
+		}
+	}, [location.pathname, currentUrl, role])
 
 	const [isMobileSideBarVisible, setIsMobileSideBarVisible] = useState(false)
-	const showMobileSideBarHandler = () => {setIsMobileSideBarVisible(true)}
+	const showMobileSideBarHandler = () => {
+		setIsMobileSideBarVisible(true)
+	}
 	const hideMobileSideBarHandler = () => {
 		setIsMobileSideBarVisible(false)
 	}
 
 	return (
 		<div>
-			<Navtopbar navigation={navigation} role={role} refreshHandler={navRefreshHandler} />
+			<Navtopbar/>
 			<Container fluid>
 				<Row>
-					<NavSideBarDesktop navigation={navigation} refreshHandler={navRefreshHandler} />
-					<NavSideBarMobile navigation={navigation} isVisible={isMobileSideBarVisible} onHide={hideMobileSideBarHandler} refreshHandler={navRefreshHandler} />
+					{hasSubmenu && <NavSideBarDesktop/>}
+					{hasSubmenu &&
+						<NavSideBarMobile isVisible={isMobileSideBarVisible} onHide={hideMobileSideBarHandler}/>}
 
-					<Col xs={12} md={8} className="min-vh-100 position-relative">
-						<button onClick={showMobileSideBarHandler} className={`d-block d-md-none ${classes.hamburger}`}>
-							<i className="bi bi-list"></i>
-						</button>
+					<Col xs={12} md={hasSubmenu ? 8 : 12} className="min-vh-100 position-relative">
+						{hasSubmenu && (
+							<button onClick={showMobileSideBarHandler}
+							        className={`d-block d-md-none ${classes.hamburger}`}>
+								<i className="bi bi-list"></i>
+							</button>
+						)}
+
 						<main>
-							<Outlet />
+							<Outlet/>
 						</main>
 					</Col>
 				</Row>

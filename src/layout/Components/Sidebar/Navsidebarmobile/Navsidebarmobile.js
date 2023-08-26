@@ -1,14 +1,33 @@
-import {Offcanvas} from 'react-bootstrap'
+import {useLocation, useNavigate} from 'react-router-dom'
+import {useEffect, useState} from 'react'
 import {useTranslation} from 'react-i18next'
+import {useSelector} from 'react-redux'
+import {Offcanvas} from 'react-bootstrap'
+import {Navigation} from '../../../../navigation/Navigation'
 import classes from './Navsidebarmobile.module.css'
 
 export const NavSideBarMobile = props => {
 	const {t} = useTranslation()
+	const location = useLocation()
+	const navigate = useNavigate()
+	const role = useSelector(state => state.role.role)
+	const [submenus, setSubmenus] = useState([])
+	const [activeSubmenu, setActiveSubmenu] = useState(undefined)
+	const [currentUrl, setCurrentUrl] = useState('')
 
-	const subMenuChangeHandler = subMenuName => {
-		if(props.navigation.activeSubMenuName !== subMenuName){
-			props.navigation.submenuName = subMenuName
-			props.refreshHandler()
+	useEffect(() => {
+		if (currentUrl !== location.pathname) {
+			setCurrentUrl(location.pathname)
+			if (role) {
+				setSubmenus(Navigation.getSubMenusForRoleAndUrl(location.pathname, role))
+				setActiveSubmenu(Navigation.getActiveSubMenu(location.pathname))
+			}
+		}
+	}, [location.pathname, currentUrl, role])
+
+	const changeSubmenuHandler = submenuUrl => {
+		if (submenuUrl !== activeSubmenu.url && role) {
+			navigate(submenuUrl)
 		}
 	}
 
@@ -19,8 +38,10 @@ export const NavSideBarMobile = props => {
 			</Offcanvas.Header>
 			<Offcanvas.Body className={classes.sidebar}>
 				<ul>
-					{props.navigation.submenus.map((submenu,index) => (
-						<li key={index} className={`nav-item border ${props.navigation.activeSubMenuName === submenu.name ? classes.active : ''}`} onClick={() => subMenuChangeHandler(submenu.name)}>
+					{submenus.map((submenu, index) => (
+						<li key={index}
+						    className={`nav-item border ${activeSubmenu.name === submenu.name ? classes.active : ''}`}
+						    onClick={() => changeSubmenuHandler(submenu.url)}>
 							<span className={'nav-link'}>{t(submenu.message)}</span>
 						</li>
 					))}
