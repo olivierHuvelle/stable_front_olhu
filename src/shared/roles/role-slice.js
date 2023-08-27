@@ -4,7 +4,7 @@ const roles = ['ADMIN', 'EMPLOYEE', 'CLIENT'] // this is a simple array which co
 
 const roleSlice = createSlice({
 	name: 'role',
-	initialState: {role: 'CLIENT', roles: roles},
+	initialState: {role: 'ADMIN', roles: roles},
 	reducers: {
 		setRole(state, actions) {
 			const newRole = actions.payload

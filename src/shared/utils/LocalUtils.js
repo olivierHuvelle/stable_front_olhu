@@ -1,10 +1,12 @@
 import {navLocales} from '../../layout/locales'
 import {errorLocales} from '../../pages/error/locales'
+import {pensionLocales} from '../../pages/backoffice/pension/locales'
 
 export class LocalUtils {
 	static allLocales = [
 		navLocales,
 		errorLocales,
+		pensionLocales,
 		{
 			fr: {
 				hello: 'Bonjour en francais',

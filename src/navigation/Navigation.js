@@ -57,7 +57,7 @@ export class Navigation {
 			[roleCategories.ADMIN],
 			'bi-wrench-adjustable',
 			[
-				new SubMenu(roleCategories.ADMIN, 'pension', 'common_nav_side_backoffice_admin_pension', 'Tmp'),
+				new SubMenu(roleCategories.ADMIN, 'pension', 'common_nav_side_backoffice_admin_pension', 'PagePension'),
 				new SubMenu(roleCategories.ADMIN, 'ride', 'common_nav_side_backoffice_admin_ride', 'Tmp'),
 				new SubMenu(roleCategories.ADMIN, 'additive', 'common_nav_side_backoffice_admin_additive', 'Tmp'),
 				new SubMenu(roleCategories.ADMIN, 'lesson', 'common_nav_side_backoffice_admin_lesson', 'Tmp')
@@ -93,12 +93,9 @@ export class Navigation {
 	}
 
 	static getSubMenusForRoleAndUrl(url, role) {
-		// je dois commencer par choper les menus qui sont associés pour ensuite
 		const menu = this.getActiveMenu(url, role)
 		return menu.submenus.filter(submenu => submenu.role === role)
 	}
-
-	x
 
 	static getActiveMenu(url, role) {
 		const menusForRole = this.getMenusForRole(role)
