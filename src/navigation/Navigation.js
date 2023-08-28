@@ -81,9 +81,9 @@ export class Navigation {
 			[roleCategories.ADMIN, roleCategories.EMPLOYEE, roleCategories.CLIENT],
 			'bi bi-lock',
 			[
-				new SubMenu(roleCategories.ADMIN, 'authentication', 'common_nav_side_authentication_authentication', 'Tmp'),
-				new SubMenu(roleCategories.EMPLOYEE, 'authentication', 'common_nav_side_authentication_authentication', 'Tmp'),
-				new SubMenu(roleCategories.CLIENT, 'authentication', 'common_nav_side_authentication_authentication', 'Tmp')
+				new SubMenu(roleCategories.ADMIN, 'authentication', 'common_nav_side_authentication_authentication', 'PageAuthentication'),
+				new SubMenu(roleCategories.EMPLOYEE, 'authentication', 'common_nav_side_authentication_authentication', 'PageAuthentication'),
+				new SubMenu(roleCategories.CLIENT, 'authentication', 'common_nav_side_authentication_authentication', 'PageAuthentication')
 			]
 		)
 	]
@@ -94,7 +94,7 @@ export class Navigation {
 
 	static getSubMenusForRoleAndUrl(url, role) {
 		const menu = this.getActiveMenu(url, role)
-		return menu.submenus.filter(submenu => submenu.role === role)
+		return menu && menu.submenus ? menu.submenus.filter(submenu => submenu.role === role) : []
 	}
 
 	static getActiveMenu(url, role) {
@@ -114,7 +114,6 @@ export class Navigation {
 	}
 
 	static getDefaultSubMenuByMenuName(menuName, role) {
-
 		const mapping = {
 			calendar: 'calendar',
 			authentication: 'authentication',

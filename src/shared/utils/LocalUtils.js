@@ -1,16 +1,21 @@
 import {navLocales} from '../../layout/locales'
 import {errorLocales} from '../../pages/error/locales'
 import {pensionLocales} from '../../pages/backoffice/pension/locales'
+import {authenticationLocales} from '../../pages/authentication/locales'
+import {notFoundLocales} from '../../pages/404/locales'
 
 export class LocalUtils {
 	static allLocales = [
 		navLocales,
 		errorLocales,
 		pensionLocales,
+		authenticationLocales,
+		notFoundLocales,
 		{
 			fr: {
 				hello: 'Bonjour en francais',
-				loading: 'Chargement'
+				loading: 'Chargement',
+				authentication_notAuthenticated: 'Veuillez vous identifier'
 			},
 			en: {
 				hello: 'Hello ! in english ',

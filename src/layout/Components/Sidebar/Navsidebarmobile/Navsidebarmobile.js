@@ -10,7 +10,7 @@ export const NavSideBarMobile = props => {
 	const {t} = useTranslation()
 	const location = useLocation()
 	const navigate = useNavigate()
-	const role = useSelector(state => state.role.role)
+	const role = useSelector(state => state.authentication.roleCategory)
 	const [submenus, setSubmenus] = useState([])
 	const [activeSubmenu, setActiveSubmenu] = useState(undefined)
 	const [currentUrl, setCurrentUrl] = useState('')

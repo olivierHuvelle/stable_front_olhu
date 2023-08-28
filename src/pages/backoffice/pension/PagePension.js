@@ -40,7 +40,7 @@ export const PagePension = () => {
 		if (isLoading) {
 			return <BaseSpinner/>
 		} else if (isError) {
-			return <BaseErrorAlert message={error}/>
+			return <BaseErrorAlert message={t(error?.data?.message)}/>
 		} else if (isSuccess) {
 			return (
 				<>

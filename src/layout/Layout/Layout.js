@@ -10,7 +10,7 @@ import classes from './Layout.module.css'
 
 export const Layout = () => {
 	const location = useLocation()
-	const role = useSelector(state => state.role.role)
+	const role = useSelector(state => state.authentication.roleCategory)
 	const [hasSubmenu, setHasSubmenu] = useState(false)
 	const [currentUrl, setCurrentUrl] = useState('')
 

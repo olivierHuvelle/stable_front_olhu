@@ -5,12 +5,13 @@ import {useSelector} from 'react-redux'
 import {Nav} from 'react-bootstrap'
 import {Navigation} from '../../../navigation/Navigation'
 import classes from './Navtopbar.module.css'
+// [CECILE] import {roleCategories} from '../../../constants/constants' pour chaque useSelector SAUF PageLogin
 
 export const Navtopbar = () => {
 	const {t} = useTranslation()
 	const location = useLocation()
 	const navigate = useNavigate()
-	const role = useSelector(state => state.role.role)
+	const role = useSelector(state => state.authentication.roleCategory) // [CECILE] const role = roleCategories
 
 	const [menus, setMenus] = useState([])
 	const [activeMenu, setActiveMenu] = useState(undefined)
@@ -27,7 +28,7 @@ export const Navtopbar = () => {
 	}, [location.pathname, currentUrl, role])
 
 	const changeMenuHandler = (menuName) => {
-		if (menuName !== activeMenu.name && role) {
+		if (menuName !== activeMenu?.name && role) {
 			navigate(Navigation.getDefaultSubMenuByMenuName(menuName, role).url)
 		}
 	}
@@ -38,7 +39,7 @@ export const Navtopbar = () => {
 				<Nav.Item key={index} className={classes.icon}>
 					<div
 						onClick={() => changeMenuHandler(menu.name)}
-						className={`${classes.icon} ${menu.name === activeMenu.name ? classes.active : ''}`}
+						className={`${classes.icon} ${menu.name === activeMenu?.name ? classes.active : ''}`}
 						title={t(menu.message)}>
 						<i className={menu.icon}></i>
 					</div>

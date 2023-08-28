@@ -1,5 +1,5 @@
 import {createElement} from 'react'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom'
 import {Layout} from './layout/Layout/Layout'
 import {Navigation} from './navigation/Navigation'
 
@@ -8,24 +8,39 @@ import {PageTwo} from './pages/pagetwo/Pagetwo'
 import {Tmp} from './pages/tmp/Tmp'
 import {Error} from './pages/error/Error'
 import {PagePension} from './pages/backoffice/pension/PagePension'
+import {PageAuthentication} from './pages/authentication/PageAuthentication'
+import {PageNotFound} from './pages/404/PageNotFound'
 
 const routerMapper = {
 	PageOne,
 	PageTwo,
 	Tmp,
-	PagePension
+	PagePension,
+	PageAuthentication
 }
 
 const router = createBrowserRouter([
 	{
 		path: '/',
+		element: <Navigate to="/calendar" />
+	},
+	{
+		path: '/',
 		element: <Layout/>,
 		errorElement: <Error/>,
-		children: Navigation.getRouter().map(route => ({
+		children: [...Navigation.getRouter().map(route => ({
 			path: route.path,
 			element: createElement(routerMapper[route.component])
-		}))
-	}
+		})),
+		{
+			path: '/error',
+			element: <Error/>
+		}]
+	},
+	{
+		path: '*',
+		element: <PageNotFound />
+	},
 ])
 
 export const App = () => {
