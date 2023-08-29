@@ -8,7 +8,6 @@ const customBaseQuery = fetchBaseQuery({
 	prepareHeaders: (headers, {getState}) => {
 		const authenticationState = getState().authentication
 		headers.set('authorization', `Bearer ${authenticationState.token ? authenticationState.token : 'invalidToken'}`)
-		// [CECILE] headers.set : Bearer token like before
 		headers.set('refreshtoken', authenticationState.refreshToken ? authenticationState.refreshToken : 'invalidRefreshToken')
 	}
 })
@@ -20,13 +19,11 @@ export const apiSlice = createApi({
 
 		let {token, refreshToken, roleCategory} = store.getState().authentication
 
-		// [CECILE] comment me for dev
 		if (response && response.meta && response.meta.response && response.meta.response.headers) {
 			token = response.meta.response.headers.get('Token')
 			refreshToken = response.meta.response.headers.get('RefreshToken')
 			roleCategory = response.meta.response.headers.get('RoleCategory')
 		}
-		// [CECILE] end of comment
 
 		store.dispatch(authenticationActions.setAuthentication({
 			token: token,

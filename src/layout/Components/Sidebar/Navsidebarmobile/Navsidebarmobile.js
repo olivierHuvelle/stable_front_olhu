@@ -14,16 +14,23 @@ export const NavSideBarMobile = props => {
 	const [submenus, setSubmenus] = useState([])
 	const [activeSubmenu, setActiveSubmenu] = useState(undefined)
 	const [currentUrl, setCurrentUrl] = useState('')
+	const [currentRole, setCurrentRole] = useState(undefined)
 
 	useEffect(() => {
-		if (currentUrl !== location.pathname) {
+		let hasChangedRole = false
+		if(currentRole !== role){
+			setCurrentRole(role)
+			hasChangedRole = true
+		}
+
+		if (currentUrl !== location.pathname || hasChangedRole) {
 			setCurrentUrl(location.pathname)
 			if (role) {
 				setSubmenus(Navigation.getSubMenusForRoleAndUrl(location.pathname, role))
 				setActiveSubmenu(Navigation.getActiveSubMenu(location.pathname))
 			}
 		}
-	}, [location.pathname, currentUrl, role])
+	}, [location.pathname, currentUrl, role, currentRole, setCurrentRole])
 
 	const changeSubmenuHandler = submenuUrl => {
 		if (submenuUrl !== activeSubmenu.url && role) {

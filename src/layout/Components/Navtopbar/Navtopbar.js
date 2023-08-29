@@ -5,27 +5,34 @@ import {useSelector} from 'react-redux'
 import {Nav} from 'react-bootstrap'
 import {Navigation} from '../../../navigation/Navigation'
 import classes from './Navtopbar.module.css'
-// [CECILE] import {roleCategories} from '../../../constants/constants' pour chaque useSelector SAUF PageLogin
 
 export const Navtopbar = () => {
 	const {t} = useTranslation()
 	const location = useLocation()
 	const navigate = useNavigate()
-	const role = useSelector(state => state.authentication.roleCategory) // [CECILE] const role = roleCategories
+	const role = useSelector(state => state.authentication.roleCategory)
 
 	const [menus, setMenus] = useState([])
 	const [activeMenu, setActiveMenu] = useState(undefined)
 	const [currentUrl, setCurrentUrl] = useState('')
+	const [currentRole, setCurrentRole] = useState(undefined)
 
 	useEffect(() => {
-		if (currentUrl !== location.pathname) {
+		let hasChangedRole = false
+		if(currentRole !== role){
+			setCurrentRole(role)
+			hasChangedRole = true
+		}
+
+		if (currentUrl !== location.pathname || hasChangedRole) {
 			setCurrentUrl(location.pathname)
 			if (role) {
 				setMenus(Navigation.getMenusForRole(role))
 				setActiveMenu(Navigation.getActiveMenu(location.pathname, role))
 			}
 		}
-	}, [location.pathname, currentUrl, role])
+	}, [location.pathname, currentUrl, role, currentRole, setCurrentRole])
+
 
 	const changeMenuHandler = (menuName) => {
 		if (menuName !== activeMenu?.name && role) {

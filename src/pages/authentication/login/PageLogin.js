@@ -15,10 +15,8 @@ export const PageLogin = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const auth = useSelector(state => state.authentication)
+	console.log('from pageLogin : auth is ', auth)
 	const isLoggedIn = useSelector(state => !!(state.authentication.token && state.authentication.refreshToken && state.authentication.roleCategory))
-
-	console.log('auth : ', auth)
-	console.log('isLoggedIn : ', isLoggedIn)
 
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 	const [error, setError] = useState('')
@@ -54,7 +52,6 @@ export const PageLogin = () => {
 				}))
 				navigate('/')
 			}
-
 		}
 		catch (error){
 			setCriticalError(error)
@@ -63,7 +60,6 @@ export const PageLogin = () => {
 
 	const logoutHandler = () => {
 		dispatch(authenticationActions.logout())
-		window.location.reload()
 	}
 
 	const togglePasswordVisibility = () => {
