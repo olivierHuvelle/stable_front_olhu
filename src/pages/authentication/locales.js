@@ -13,7 +13,6 @@ export const authenticationLocales = {
 		authentication_fields_passwordConfirm_label: 'confirmation du mot de passe',
 		authentication_fields_passwordConfirm_placeholder: 'P@ssw0rd',
 
-
 		//pageAuthentication
 		authentication_authentication_login: 'connexion',
 		authentication_authentication_register: 'enregistrement',
@@ -31,7 +30,8 @@ export const authenticationLocales = {
 		authentication_register_password_show: 'afficher le mot de passe',
 		authentication_register_passwordConfirm_hide: 'masquer le mot de passe de confirmation',
 		authentication_register_passwordConfirm_show: 'afficher le mot de passe de confirmation',
-		authentication_register_register: 'créer un compte'
+		authentication_register_register: 'créer un compte',
+		authentication_register_successMessage: 'Votre compte a bien été créé, vous allez recevoir un email vous permettant de confirmer votre compte',
 
 	},
 	en: {},

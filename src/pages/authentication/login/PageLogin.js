@@ -14,8 +14,6 @@ export const PageLogin = () => {
 	const {t} = useTranslation()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const auth = useSelector(state => state.authentication)
-	console.log('from pageLogin : auth is ', auth)
 	const isLoggedIn = useSelector(state => !!(state.authentication.token && state.authentication.refreshToken && state.authentication.roleCategory))
 
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
