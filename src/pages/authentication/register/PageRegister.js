@@ -7,6 +7,7 @@ import {Error} from '../../error/Error'
 import {baseUrl} from '../../../constants/baseUrl'
 import {BaseErrorAlert} from '../../../shared/ui/BaseErrorAlert'
 import {BaseSuccessAlert} from '../../../shared/ui/BaseSuccessAlert'
+import {Link} from 'react-router-dom'
 
 export const PageRegister = () => {
 	const {t} = useTranslation()
@@ -72,6 +73,7 @@ export const PageRegister = () => {
 
 				{error && <BaseErrorAlert message={error} />}
 				{isSuccess && <BaseSuccessAlert message={t('authentication_register_successMessage')} />}
+				{isSuccess && <Link to='/confirmation'>{t('authentication_register_redirection')}</Link>}
 
 				<Form.Group className="mb-3">
 					<Form.Label>{t('authentication_fields_email_label')}</Form.Label>

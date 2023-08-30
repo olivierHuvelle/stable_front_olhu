@@ -10,6 +10,8 @@ import {Error} from './pages/error/Error'
 import {PagePension} from './pages/backoffice/pension/PagePension'
 import {PageAuthentication} from './pages/authentication/PageAuthentication'
 import {PageNotFound} from './pages/404/PageNotFound'
+import {PageRgpd} from './pages/rgpd/PageRgpd'
+import {PageConfirmation} from './pages/authentication/confirmation/PageConfirmation'
 
 const routerMapper = {
 	PageOne,
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Navigate to="/calendar" />
+	},
+	{
+		path: '/rgpd',
+		element: <PageRgpd />
+	},
+	{
+		path: '/confirmation',
+		element: <PageConfirmation />
 	},
 	{
 		path: '/',

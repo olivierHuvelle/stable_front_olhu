@@ -3,6 +3,7 @@ import {errorLocales} from '../../pages/error/locales'
 import {pensionLocales} from '../../pages/backoffice/pension/locales'
 import {authenticationLocales} from '../../pages/authentication/locales'
 import {notFoundLocales} from '../../pages/404/locales'
+import {rgpdLocales} from '../../pages/rgpd/locales'
 
 export class LocalUtils {
 	static allLocales = [
@@ -11,6 +12,7 @@ export class LocalUtils {
 		pensionLocales,
 		authenticationLocales,
 		notFoundLocales,
+		rgpdLocales,
 		{
 			fr: {
 				hello: 'Bonjour en francais',
